@@ -1,4 +1,4 @@
-import "../HomePage/home_page.dart";
+import "../SpaceChange/HomePage/home_page.dart";
 import "package:flutter/material.dart";
 
 class BannerScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class _BannerScreenState extends State<BannerScreen> with SingleTickerProviderSt
   @override 
   void initState(){
     super.initState();
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 3000));
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 5000));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
     _animation.addStatusListener((status) {
       if(status == AnimationStatus.completed){

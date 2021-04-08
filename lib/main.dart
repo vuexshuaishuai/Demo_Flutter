@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title:"Good",
       home:BannerScreen(),
+      debugShowMaterialGrid: false,
     );
   }
 }
