@@ -44,7 +44,7 @@ class BeiJingCity extends StatefulWidget {
   _BeiJingCityState createState() => _BeiJingCityState();
 }
 
-class _BeiJingCityState extends State<BeiJingCity> {
+class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClientMixin {
   String guess = "";
   @override
   void initState(){
@@ -100,4 +100,7 @@ class _BeiJingCityState extends State<BeiJingCity> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

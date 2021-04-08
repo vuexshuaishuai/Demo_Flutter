@@ -37,7 +37,7 @@ class Cities extends StatefulWidget {
   _CitiesState createState() => _CitiesState();
 }
 
-class _CitiesState extends State<Cities> {
+class _CitiesState extends State<Cities> with AutomaticKeepAliveClientMixin {
   List spaceData = [];
   @override
   void initState(){
@@ -95,4 +95,7 @@ class _CitiesState extends State<Cities> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

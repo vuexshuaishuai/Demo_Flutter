@@ -8,7 +8,7 @@ class AllCity extends StatefulWidget {
   _AllCityState createState() => _AllCityState();
 }
 
-class _AllCityState extends State<AllCity> {
+class _AllCityState extends State<AllCity> with AutomaticKeepAliveClientMixin{
   List titles = [];
   Map groupData = {};
   @override 
@@ -44,6 +44,9 @@ class _AllCityState extends State<AllCity> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class ModelCity extends StatelessWidget {
@@ -78,7 +81,8 @@ class ModelCity extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              border:Border.all(width: 1.0, color:Color.fromRGBO(228, 228, 228, 1))
+              border:Border.all(width: 1.0, color:Color.fromRGBO(228, 228, 228, 1)),
+              color:Colors.white,
             ),
             child:Wrap(
             children: this.spaceData[item].map<Widget>((value){
@@ -91,18 +95,23 @@ class ModelCity extends StatelessWidget {
                   child:Container(
                     width: double.infinity,
                     height: 50.0,
+                    padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
                     decoration: BoxDecoration(
                       border:Border(
                         right:(this.spaceData[item].indexOf(value)+1) % 4 != 0?BorderSide(width: 1.0, color:Color.fromRGBO(228, 228, 228, 1)):BorderSide(width: 0,color:Colors.white),
-                        bottom:(this.spaceData.length - (this.spaceData[item].indexOf(value) + 1) >= this.spaceData.length % 4)?BorderSide(width: 1.0, color:Color.fromRGBO(228, 228, 228, 1)):BorderSide(width: 0.0,color:Colors.white),
+                        bottom:this.spaceData[item].length - this.spaceData[item].indexOf(value) + 1 >= (this.spaceData[item].length % 4) ? 
+                                BorderSide(width: 1.0, color:Color.fromRGBO(228, 228, 228, 1)) : 
+                                BorderSide(width: 1.0,color:Colors.white),
                       ),
                       color:Colors.white
                     ),
                     child: Center(child:Text(
                       "${value['name']}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 16.0,
-                        color:Color.fromRGBO(49, 144, 232, 1)
+                        color:Color.fromRGBO(49, 144, 232, 1),
                       ),
                     )),
                   )
