@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "OpenBanner/open_banner.dart";
+import "views/OpenBanner/open_banner.dart";
 
 void main(){
   runApp(MyApp());

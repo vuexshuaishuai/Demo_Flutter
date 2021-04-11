@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 import "package:http/http.dart" as http;
 import "dart:convert" as convert;
 import "../../SearchPage/search_change.dart";
+// import "../../../../myRequest/myService.dart";
+
 
 class CurrentCity extends StatelessWidget {
   @override 
@@ -50,6 +52,7 @@ class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClient
   void initState(){
     super.initState();
     this._getData();
+    // print(getCurrentCity() + "----------");
   }
   void _getData() async{
     var url = Uri.https("elm.cangdu.org", "/v1/cities",{"type":"guess"});
