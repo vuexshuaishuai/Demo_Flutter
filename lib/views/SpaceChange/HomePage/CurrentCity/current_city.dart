@@ -2,8 +2,8 @@ import "package:flutter/material.dart";
 import "package:http/http.dart" as http;
 import "dart:convert" as convert;
 import "../../SearchPage/search_change.dart";
-// import "../../../../myRequest/myService.dart";
-
+import "../../../../myRequest/myRequest.dart";
+import "package:dio/dio.dart";
 
 class CurrentCity extends StatelessWidget {
   @override 
@@ -52,7 +52,6 @@ class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClient
   void initState(){
     super.initState();
     this._getData();
-    // print(getCurrentCity() + "----------");
   }
   void _getData() async{
     var url = Uri.https("elm.cangdu.org", "/v1/cities",{"type":"guess"});
@@ -61,11 +60,23 @@ class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClient
       var jsonResponse = convert.jsonDecode(response.body);
       setState(() {
         this.guess = jsonResponse['name'];
-        print(this.guess);
       });
     }else{
       print(response.statusCode);
     }
+    print(HttpManager.instance.request);
+    print(Api.getCurrentCity());
+    ValidateResult res = await HttpManager.instance.request(Api.getCurrentCity());
+    print("数据");
+    print(res);
+
+    // var dio = new Dio();
+    // dio.options = BaseOptions(
+    //   baseUrl:"https://elm.cangdu.org",
+    //   method: "GET"
+    // );
+    // var res = await dio.request("/v1/cities",queryParameters:{'type':'guess'});
+    
   }
 
   @override

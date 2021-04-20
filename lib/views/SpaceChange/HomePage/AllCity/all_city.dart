@@ -27,9 +27,7 @@ class _AllCityState extends State<AllCity> with AutomaticKeepAliveClientMixin{
           this.titles.add(key);
         });
         this.titles.sort((a,b) => a.compareTo(b));
-        print(titles);
       });
-      print(groupData);
     }else{
       print(res.statusCode);
     }

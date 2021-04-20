@@ -1,10 +1,16 @@
-import "./myRequest.dart";
+import "myRequest.dart";
+import "TargetType.dart";
 
-// 获取当前城市
-getCurrentCity() async{
-  return await Request.myRequest(
-    "/v1/cities",
-    data:{'type':'guess'},
-    method:'get'
-  );
+class Api {
+  static getCurrentCity(){
+    return TargetType().config(
+      path: "/v1/cities",
+      headers:{},
+      method: MSNetServiceMethod.GET,
+      parameters: {"type":"guess"},
+      encoding: ParameterEncoding.URLEncoding
+    );
+  }
 }
+
+final HttpManager httpManager = HttpManager.instance;
