@@ -2,12 +2,12 @@ import "myRequest.dart";
 import "TargetType.dart";
 
 class Api {
-  static getCurrentCity(){
+  static getCurrentCity(params){
     return TargetType().config(
       path: "/v1/cities",
       headers:{},
       method: MSNetServiceMethod.GET,
-      parameters: {"type":"guess"},
+      parameters: params,
       encoding: ParameterEncoding.URLEncoding
     );
   }

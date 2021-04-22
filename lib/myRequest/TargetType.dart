@@ -24,8 +24,8 @@ class TargetType {
   //参数位置
   ParameterEncoding encoding;
   //请求头
-  Map headers;
-  config({String path, MSNetServiceMethod method, Object parameters, ParameterEncoding encoding, Map headers}){
+  Map<String, dynamic> headers;
+  config({String path, MSNetServiceMethod method, Object parameters, ParameterEncoding encoding, Map<String, dynamic> headers}){
     this.path = path;
     this.method = method;
     if(parameters != null){

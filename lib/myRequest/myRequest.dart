@@ -1,4 +1,5 @@
 library httpmanager;
+
 export "myService.dart";
 export "Result.dart";
 export "TargetType.dart";
@@ -38,13 +39,16 @@ class HttpManager {
     //请求
     try{
       Response response;
-      //设置基础请求配置:统一请求路径、请求时长
-      final options = BaseOptions(
-        baseUrl: baseUrl,
-        connectTimeout: connectTimeout
-      );
       //设置请求头
-      if(targetType.headers != null) options.headers = targetType.headers;
+      Map<String, dynamic> httpHeaders;
+      //如果请求头不为空
+      if(targetType.headers.keys.toList().length != 0) httpHeaders = targetType.headers;
+      //设置基础请求配置:统一请求路径、请求时长
+      var options = BaseOptions(
+        baseUrl: baseUrl,
+        connectTimeout: connectTimeout,
+        headers: httpHeaders,
+      );
       dio.options = options;
       //判断请求方式
       switch (targetType.method){
@@ -85,11 +89,9 @@ class HttpManager {
         response = await dio.request(targetType.path);
       }
       //最后的最后：将结果返回(通知请求成功以及返回的数据)
-      // return ValidateResult(ValidateType.success, data: response.data);
-      print("请求成功");
-      return response;
+      return ValidateResult(ValidateType.success, data: response);
     }catch(exception){
-      print("请求失败");
+      print("失败~");
       try{
         DioError error = exception;
         Map dict = error.response.data;

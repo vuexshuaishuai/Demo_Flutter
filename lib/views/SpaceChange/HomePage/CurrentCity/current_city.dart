@@ -64,11 +64,7 @@ class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClient
     }else{
       print(response.statusCode);
     }
-    print(HttpManager.instance.request);
-    print(Api.getCurrentCity());
-    ValidateResult res = await HttpManager.instance.request(Api.getCurrentCity());
-    print("数据");
-    print(res);
+    
 
     // var dio = new Dio();
     // dio.options = BaseOptions(
@@ -104,6 +100,10 @@ class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClient
                 color:Color.fromRGBO(49, 144, 232, 1)
               ),
             ),
+            // ElevatedButton(onPressed: () async{
+            //   ValidateResult res = await HttpManager.instance.request(Api.getCurrentCity({"type":"guess"}));
+            //   print(res.data);
+            // }, child: Text("点击")),
             Icon(
               Icons.chevron_right,
               size:25.0,
