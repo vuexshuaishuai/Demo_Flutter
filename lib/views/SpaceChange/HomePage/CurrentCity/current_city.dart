@@ -30,7 +30,6 @@ class CurrentCity extends StatelessWidget {
             Text(
               "定位不准时，请在城市列表中选择",
               style:TextStyle(
-                fontWeight: FontWeight.bold,
                 color:Color.fromRGBO(159, 159, 159, 1),
               ),
             ),
@@ -64,15 +63,6 @@ class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClient
     }else{
       print(response.statusCode);
     }
-    
-
-    // var dio = new Dio();
-    // dio.options = BaseOptions(
-    //   baseUrl:"https://elm.cangdu.org",
-    //   method: "GET"
-    // );
-    // var res = await dio.request("/v1/cities",queryParameters:{'type':'guess'});
-    
   }
 
   @override
@@ -100,10 +90,6 @@ class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClient
                 color:Color.fromRGBO(49, 144, 232, 1)
               ),
             ),
-            // ElevatedButton(onPressed: () async{
-            //   ValidateResult res = await HttpManager.instance.request(Api.getCurrentCity({"type":"guess"}));
-            //   print(res.data);
-            // }, child: Text("点击")),
             Icon(
               Icons.chevron_right,
               size:25.0,
