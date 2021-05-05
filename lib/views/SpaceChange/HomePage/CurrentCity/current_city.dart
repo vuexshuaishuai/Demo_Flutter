@@ -1,9 +1,8 @@
+import 'dart:convert';
+
 import "package:flutter/material.dart";
-import "package:http/http.dart" as http;
-import "dart:convert" as convert;
 import "../../SearchPage/search_change.dart";
 import "../../../../myRequest/myRequest.dart";
-import "package:dio/dio.dart";
 
 class CurrentCity extends StatelessWidget {
   @override 
@@ -47,26 +46,25 @@ class BeiJingCity extends StatefulWidget {
 
 class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClientMixin {
   String guess = "";
+  Map currentData;
   @override
   void initState(){
     super.initState();
     this._getData();
   }
   void _getData() async{
-    var url = Uri.https("elm.cangdu.org", "/v1/cities",{"type":"guess"});
-    var response = await http.get(url);
-    if(response.statusCode == 200){
-      var jsonResponse = convert.jsonDecode(response.body);
-      setState(() {
-        this.guess = jsonResponse['name'];
-      });
-    }else{
-      print(response.statusCode);
-    }
+    var res = await HttpManager.instance.request(Api.getCurrentCity({'type':'guess'}));
+    var changeDecodeData = json.decode(res.toString());
+    setState(() {
+      this.guess = changeDecodeData['name'];
+      this.currentData = changeDecodeData;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    //因为使用了AutomaticKeepAliveClientMixin方法 所以这里必须实现以下super
+    super.build(context);
     return Container(
       width:double.infinity,
       height:50.0,
@@ -77,7 +75,7 @@ class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClient
       ),
       child:InkWell(
         onTap:(){
-          Navigator.push(context,MaterialPageRoute(builder: (context) => SearchPage(city:this.guess)));
+          Navigator.push(context,MaterialPageRoute(builder: (context) => SearchPage(city:this.currentData)));
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,6 +88,16 @@ class _BeiJingCityState extends State<BeiJingCity> with AutomaticKeepAliveClient
                 color:Color.fromRGBO(49, 144, 232, 1)
               ),
             ),
+            // ElevatedButton(
+            //   onPressed: () async{
+            //     var res = await HttpManager.instance.request(Api.getCurrentCity({'type':'guess'}));
+            //     print("----");
+            //     print(res);
+            //     // convert.jsonDecode(res).data
+            //     // print(res.data.runtimeType.toString());
+            //   }, 
+            //   child: Text("点击")
+            // ),
             Icon(
               Icons.chevron_right,
               size:25.0,

@@ -69,7 +69,7 @@ class _CitiesState extends State<Cities> with AutomaticKeepAliveClientMixin {
             widthFactor: 0.25,
             child:InkWell(
               onTap:(){
-                Navigator.push(context,MaterialPageRoute(builder: (context) => SearchPage(city:value['name'])));
+                Navigator.push(context,MaterialPageRoute(builder: (context) => SearchPage(city:value)));
               },
               child:Container(
                 width: double.infinity,

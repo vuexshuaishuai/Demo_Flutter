@@ -4,10 +4,10 @@ export "myService.dart";
 export "Result.dart";
 export "TargetType.dart";
 
+import 'dart:convert';
 import "package:dio/dio.dart";
 import "Log_Interceptors.dart";
 import "TargetType.dart";
-import "Result.dart";
 
 //默认的header中的 content-type 为 application/json
 class HttpManager {
@@ -30,19 +30,19 @@ class HttpManager {
       //初始化Dio
       _instance.dio = new Dio();
       //添加拦截器
-      _instance.dio.interceptors.add(LogInterceptors());
+      // _instance.dio.interceptors.add(LogInterceptors());
     }
     return _instance;
   }
   //请求功能
-  request(TargetType targetType) async {
+  request(TargetType targetType) async{
     //请求
     try{
-      Response response;
+      var response;
       //设置请求头
       Map<String, dynamic> httpHeaders;
       //如果请求头不为空
-      if(targetType.headers.keys.toList().length != 0) httpHeaders = targetType.headers;
+      if(targetType.headers.keys.toList().length != 0) httpHeaders = targetType.headers; 
       //设置基础请求配置:统一请求路径、请求时长
       var options = BaseOptions(
         baseUrl: baseUrl,
@@ -77,7 +77,10 @@ class HttpManager {
         switch(targetType.encoding){
           //如果是FORM请求
           case ParameterEncoding.URLEncoding:
+            // print(targetType.path);
+            // print(targetType.parameters);
             response = await dio.request(targetType.path, queryParameters: targetType.parameters);
+            // print(response);
           break;
           //如果是BODY请求
           case ParameterEncoding.BodyEncoding:
@@ -88,18 +91,13 @@ class HttpManager {
       }else{
         response = await dio.request(targetType.path);
       }
-      //最后的最后：将结果返回(通知请求成功以及返回的数据)
-      return ValidateResult(ValidateType.success, data: response);
+      print("flutter接口请求");
+      // return json.decode(response.toString());
+      return response;
     }catch(exception){
-      print("失败~");
-      try{
-        DioError error = exception;
-        Map dict = error.response.data;
-        var message = dict["message"];
-        return ValidateResult(ValidateType.failed, errorMsg: message == null ? "网络请求失败，请重试1" : message );
-      }catch(error){
-        return ValidateResult(ValidateType.failed, errorMsg: "网络请求失败，请重试2");
-      }
+
+      print("来到了失败");
+      return exception;
     }
   }
 }
